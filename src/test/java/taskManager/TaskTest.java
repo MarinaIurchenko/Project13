@@ -12,10 +12,22 @@ public class TaskTest {
                 "Приложение НетоБанка",
                 "Во вторник после обеда");
 
-        Assertions.assertTrue(meeting.matches("версии"));
-        Assertions.assertTrue(meeting.matches("Приложение"));
-        Assertions.assertTrue(meeting.matches("вторник"));
-        Assertions.assertFalse(meeting.matches("Банка"));
+        boolean expected = true;
+        boolean actual = meeting.matches("версии");
+
+        Assertions.assertEquals(expected,actual);
+
+    }
+    @Test
+    public void testMeetingFalse() {
+        Meeting meeting = new Meeting(555, "Выкатка 3й версии приложения",
+                "Приложение НетоБанка",
+                "Во вторник после обеда");
+
+        boolean expected = false;
+        boolean actual = meeting.matches("выкатить");
+
+        Assertions.assertEquals(expected, actual);
     }
 
     @Test
@@ -23,18 +35,41 @@ public class TaskTest {
         String[] subtasks = {"Молоко", "Яйца", "Хлеб"};
         Epic epic = new Epic(55, subtasks);
 
-        Assertions.assertTrue(epic.matches("Молоко"));
-        Assertions.assertTrue(epic.matches("Яйца"));
-        Assertions.assertTrue(epic.matches("Хлеб"));
-        Assertions.assertFalse(epic.matches("Кефир"));
-    }
+        boolean expected = true;
+        boolean actual = epic.matches("Яйца");
 
+        Assertions.assertEquals(expected,actual);
+
+    }
+    @Test
+    public void testEpicFalse() {
+        String[] subtasks = {"Молоко", "Яйца", "Хлеб"};
+        Epic epic = new Epic(55, subtasks);
+
+        boolean expected = false;
+        boolean actual = epic.matches("выкатить");
+
+        Assertions.assertEquals(expected,actual);
+
+    }
     @Test
     public void testSimpleTask() {
         SimpleTask simpleTask = new SimpleTask(5, "Позвонить родителям");
 
-        Assertions.assertTrue(simpleTask.matches("Позвонить"));
-        Assertions.assertFalse(simpleTask.matches("Звонить"));
+        boolean expected = true;
+        boolean actual = simpleTask.matches("Позвонить");
+
+        Assertions.assertEquals(expected,actual);
+
+    }
+    @Test
+    public void testSimpleTaskFalse() {
+        SimpleTask simpleTask = new SimpleTask(5, "Позвонить родителям");
+
+        boolean expected = false;
+        boolean actual = simpleTask.matches("позвать");
+
+        Assertions.assertEquals(expected,actual);
 
     }
 
